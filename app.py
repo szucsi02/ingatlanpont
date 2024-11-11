@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, jsonify
+from flask import Flask, render_template, request, jsonify, mysql.connector
 
 
 app = Flask(__name__)
@@ -7,6 +7,13 @@ app = Flask(__name__)
 def hello_world():  # put application's code here
     return 'Hello World!'
 
+def create_db_connection():
+    return mysql.connector.connect(
+        host="ingatlan-do-user-18278046-0.f.db.ondigitalocean.com",
+        user="doadmin",
+        password="AVNS_PUuxCgBKR5BpTimGZxi", #ezeket meg be kell írni
+        database="ingatlan"
+    )
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():
@@ -14,7 +21,16 @@ def register():
         email = request.form['email']
         password = request.form['password']
         # EZT CSAK TESZTELÉS KÉPPEN ALKALMAZTAM, INNENTŐL KELL A BACKENDET CSINÁLNI
-        print(f"Received data: Email: {email}, Password: {password}")
+
+        conn = create_db_connection()
+        cursor = conn.cursor()
+        insert_query = "INSERT INTO users (email, password) VALUES (%s, %s)"
+        cursor.execute(insert_query, (email, password))
+        conn.commit()
+        cursor.close()
+        conn.close()
+
+        #print(f"Received data: Email: {email}, Password: {password}")
         return jsonify({'message': 'Data received successfully'})
     return render_template('register.html')
 
@@ -24,7 +40,21 @@ def login():
         email = request.form['email']
         password = request.form['password']
         # EZT CSAK TESZTELÉS KÉPPEN ALKALMAZTAM, INNENTŐL KELL A BACKENDET CSINÁLNI
-        print(f"Received data: Email: {email}, Password: {password}")
+
+        conn = create_db_connection()
+        cursor = conn.cursor(dictionary=True)
+        select_query = "SELECT * FROM users WHERE email = %s AND password = %s"
+        cursor.execute(select_query, (email, password))
+        user = cursor.fetchone()
+        cursor.close()
+        conn.close()
+
+        if user:
+            return jsonify({'message': 'Login successful'})
+        else:
+            return jsonify({'message': 'Invalid email or password'}), 401
+
+        #print(f"Received data: Email: {email}, Password: {password}")
         return jsonify({'message': 'Data received successfully'})
     return render_template('login.html')
 

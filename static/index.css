@@ -1,0 +1,142 @@
+.navbar{
+    background-color: #C5A77E;
+}
+
+*{
+    font-family: "Fredoka";
+}
+
+body{
+    background-color: #EFE3D1;
+
+}
+
+.navbar-brand{
+    font-weight: bolder;
+    font-size: 25px;
+}
+
+.nav-link{
+    font-weight: normal;
+    font-size: 20px;
+}
+
+.search-bar{
+    background-color: #DBC097;
+    border-bottom-left-radius: 30px;
+    border-bottom-right-radius: 30px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 10px;
+}
+
+.search-bar div{
+    border: 1px solid #c8c8c8;
+    background-color: #faf5ef;
+    border-radius: 50px;
+    min-height: 50px;
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+}
+
+.switch{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 2px;
+}
+
+.switch div{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 20px;
+    border: none;
+}
+
+.switch .selected{
+    background-color: #B95C00;
+    color: white;
+}
+
+.dropdown{
+    padding: 0 20px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    width: 20%;
+}
+.rounded-search {
+    border-radius: 15px; /* Adjust the value to get the desired roundness */
+}
+.search{
+    padding: 0 20px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    width: 50%;
+}
+
+.main{
+    background-color: #faf5ef;
+}
+
+h3 {
+    margin-top: 50px;
+}
+
+.card{
+    border-radius: 30px;
+    background-color: #DBC097;
+    border: none;
+    margin: 20px;
+    padding: 20px;
+}
+
+.card img {
+    border-radius: 15px;
+    width: 100%;
+    object-fit: cover;
+}
+
+.card-text {
+    font-size: 18px;
+    font-weight: 500;
+}
+
+.data {
+    font-size: 16px;
+    font-weight: 400;
+    display: flex;
+    flex-direction: row;
+    justify-content: end;
+    gap: 20px;
+    align-items: center;
+}
+
+footer{
+    border-top-left-radius: 40px;
+    border-top-right-radius: 40px;
+}
+
+.btn-circle{
+    height: 50px;
+    width: 50px;
+    border-radius: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #faf5ef;
+    border: 1px solid #C8C8C8;
+    color: #000;
+}
+
+.btn-circle:hover{
+    background-color: #d8d3cd;
+    border-color: #a6a6a6;
+}
