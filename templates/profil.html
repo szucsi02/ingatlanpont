@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+    <meta charset="UTF-8">
+    <title>IngatlanPont - Profil</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='profil.css') }}">
+
+</head>
+<body class="body-profil">
+    <header>
+        <div>
+            <a style="font-weight: bold; font-size: 20px; text-decoration: none; color: #000;">IngatlanPont</a>
+        </div>
+        <nav>
+            <a href="#">Hirdetések</a>
+            <a href="#">Hirdetésfeladás</a>
+            <a href="#">Profil</a>
+            <a href="#">Kijelentkezés</a>
+        </nav>
+    </header>
+    <div class="container-profil">
+        <div class="sidebar-profil">
+            <ul class="sidebar-profil">
+                <p>Fiókbeállítások</p>
+                <!-- Belső menü rendszerhez menu változó -->
+                <li class="{% if active_menu == 'szemelyes_adatok' %}active{% endif %}">
+                    <img src="{{ url_for('static', filename='images/user.png') }}" alt="Személyes adatok">
+                    <a href="{{ url_for('profil', menu='szemelyes_adatok') }}">Személyes adatok</a>
+                </li>
+                <li class="{% if active_menu == 'jelszo_modositas' %}active{% endif %}">
+                    <img src="{{ url_for('static', filename='images/password.png') }}" alt="Jelszó módosítása">
+                    <a href="{{ url_for('profil', menu='jelszo_modositas') }}">Jelszó módosítása</a>
+                </li>
+                <li class="{% if active_menu == 'hirdeteseim' %}active{% endif %}">
+                    <img src="{{ url_for('static', filename='images/newspaper-folded.png') }}" alt="Hirdetéseim kezelése">
+                    <a href="{{ url_for('profil', menu='hirdeteseim') }}">Hirdetéseim kezelése</a>
+                </li>
+                <li class="{% if active_menu == 'fok' %}active{% endif %}">
+                    <img src="{{ url_for('static', filename='images/sad-face.png') }}" alt="Fiók törlése">
+                    <a href="{{ url_for('profil', menu='fok') }}">Fiók törlése</a>
+                </li>
+            </ul>
+        </div>
+        <div class="content-profil">
+             {% if active_menu == 'szemelyes_adatok' %}
+                <h2>Személyes adatok</h2>
+                 <h3>Általános adatok</h3>
+                <p>Itt kezelheted a fiókod adatait és beállításait.</p>
+                 <div class = "data-card">
+                 <div>
+                    <p><strong>Név</strong></p>
+                 </div>
+                      {% if nevEdit %}
+                        <p><input type="text" value="Példa Péter" />
+                        <a href="{{ url_for('profil', nevEdit='False') }}"><img class="icon" src="{{ url_for('static', filename='images/check-mark.png') }}" alt="Mentés"></a>
+                        </p>
+                      {% else %}
+                          <p>Példa Péter
+                        <a href="{{ url_for('profil', nevEdit='True') }}"><img class="icon" src="{{ url_for('static', filename='images/edit.png') }}" alt="Módosítás"></a>
+                      </p>
+                      {% endif %}
+
+                  <div>
+                    <p><strong>E-mail</strong></p>
+                 </div>
+                      {% if emailEdit %}
+                        <p><input type="text" value="xyz@gmail.com" />
+                        <a href="{{ url_for('profil', emailEdit='False') }}"><img class="icon" src="{{ url_for('static', filename='images/check-mark.png') }}" alt="Mentés"></a>
+                        </p>
+                      {% else %}
+                          <p>xyz@gmail.com
+                        <a href="{{ url_for('profil', emailEdit='True') }}"><img class="icon" src="{{ url_for('static', filename='images/edit.png') }}" alt="Módosítás"></a>
+                      </p>
+                      {% endif %}
+
+                   <div>
+                    <p><strong>Telefonszám</strong></p>
+                 </div>
+                      {% if telszamEdit %}
+                        <p><input type="text" value="+36 20 123 4567" />
+                        <a href="{{ url_for('profil', telszamEdit='False') }}"><img class="icon" src="{{ url_for('static', filename='images/check-mark.png') }}" alt="Mentés"></a>
+                        </p>
+                      {% else %}
+                          <p>+36 20 123 4567
+                        <a href="{{ url_for('profil', telszamEdit='True') }}"><img class="icon" src="{{ url_for('static', filename='images/edit.png') }}" alt="Módosítás"></a>
+                      </p>
+                      {% endif %}
+
+                 </div>
+                <!-- További személyes információk itt, ha vannak -->
+
+            {% elif active_menu == 'jelszo_modositas' %}
+                <h2>Jelszó módosítása</h2>
+                <!-- <form method="POST" action=""> -->
+                    <label for="new_password">Új jelszó:</label>
+                    <input type="password" id="new_password" name="new_password" required>
+                    <button type="submit">Mentés</button>
+                <!-- </form> -->
+
+            {% elif active_menu == 'hirdeteseim' %}
+                <h2>Hirdetéseim kezelése</h2>
+                <!-- Hirdetések listázása itt -->
+                 <!-- Alap kinézet, majd for ciklussal kiírható ebbe a nézetbe az összes. -->
+
+                 <table class="user-table">
+
+                    <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>Kép</th>
+                            <th>Hirdetés címe</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td><img class="icon" src="{{ url_for('static', filename='images/ads/ingatlan-pelda.jpg') }}" alt="Ingatlan kép"></td>
+                            <td>Eladó ingatlan</td>
+                            <td>
+                                <button class="edit-btn">Szerkesztés</button> <!-- Itt akkor a hirdetés létrehozása html lehet az alap, funkciók módosításával -->
+                                <button class="delete-btn">Törlés</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+            {% elif active_menu == 'fok' %}
+                <h2>Fiók törlése</h2>
+                <p>Itt törölheted a fiókodat.</p>
+                <!-- Fiók törlésének információi itt -->
+
+            {% else %}
+                <h2>Hiba történt</h2>
+                <p>Nem található a kért oldal.</p>
+            {% endif %}
+        </div>
+    </div>
+</body>
+</html>

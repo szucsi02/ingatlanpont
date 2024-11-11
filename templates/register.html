@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Regisztráció</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f8f9fa;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            text-align: center;
+        }
+        .container {
+            background-color: #ffffff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            max-width: 400px;
+            width: 100%;
+        }
+        .form-group {
+            margin-bottom: 2rem;
+            margin-top: 2rem;
+        }
+        .form-group input {
+            border-radius: 10px;
+            width: 100%;
+        }
+        .btn-primary {
+            background-color: #007bff;
+            border-color: #007bff;
+            width: 50%;
+            margin-top: 2rem;
+            margin-bottom: 2rem;
+            border-radius: 10px;
+        }
+        .btn-primary:hover {
+            background-color: #0056b3;
+            border-color: #0056b3;
+        }
+        .mt-5 {
+            margin-top: 3rem !important;
+        }
+        .error-message {
+            color: red;
+            margin-top: 1rem;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h2 class="mt-5">Regisztráció</h2>
+    <form id="registerForm" action="{{ url_for('register') }}" method="POST">
+        <div class="form-group">
+            <input type="email" class="form-control" id="email" name="email" placeholder="Email cím" required>
+        </div>
+        <div class="form-group">
+            <input type="password" class="form-control" id="password" name="password" placeholder="Jelszó" required>
+        </div>
+        <div class="form-group">
+            <input type="password" class="form-control" id="confirm_password" name="confirm_password" placeholder="Jelszó megerősítése" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Regisztráció</button>
+        <p>Már van fiókja? <a href="/login">Jelentkezzen be itt</a></p>
+        <p class="error-message" id="error-message"></p>
+    </form>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    $(document).ready(function() {
+        $('#registerForm').submit(function(event) {
+            const password = $('#password').val();
+            const confirm_password = $('#confirm_password').val();
+            if (password !== confirm_password) {
+                $('#error-message').text('A két jelszó nem egyezik meg!');
+                event.preventDefault();
+            } else {
+                $('#error-message').text('');
+                event.preventDefault();
+                $.ajax({
+                    type: 'POST',
+                    url: '{{ url_for("register") }}',
+                    data: $(this).serialize(),
+                    success: function(response) {
+                        location.reload();
+                    },
+                    error: function(response) {
+                        $('#error-message').text('Hiba történt a regisztráció során.');
+                    }
+                });
+            }
+        });
+    });
+</script>
+</body>
+</html>
