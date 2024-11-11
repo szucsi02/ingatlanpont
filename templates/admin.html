@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+    <meta charset="UTF-8">
+    <title>IngatlanPont - Admin</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='admin.css') }}">
+</head>
+<body class="body-admin">
+    <header>
+        <div>
+            <a style="font-weight: bold; font-size: 20px; text-decoration: none; color: #000;">IngatlanPont</a>
+        </div>
+        <nav>
+            <a href="#">Admin oldal</a>
+            <a href="#">Hirdetések</a>
+            <a href="#">Profil</a>
+            <a href="#">Kijelentkezés</a>
+        </nav>
+    </header>
+    <div class="container-admin">
+        <div class="sidebar-admin">
+            <ul class="sidebar-admin">
+                <li class="{% if active_menu_admin == 'felhasznalok-kezelese' %}active-menu{% endif %}">
+                    <img src="{{ url_for('static', filename='images/user.png') }}" alt="Felhasználók kezelése">
+                    <a href="{{ url_for('admin', menu2='felhasznalok-kezelese') }}">Felhasználók kezelése</a>
+                </li>
+                <li class="{% if active_menu_admin == 'hirdetesek-kezelese' %}active-menu{% endif %}">
+                    <img src="{{ url_for('static', filename='images/newspaper-folded.png') }}" alt="Hirdetések kezelése">
+                    <a href="{{ url_for('admin', menu2='hirdetesek-kezelese') }}">Hirdetések kezelése</a>
+                </li>
+            </ul>
+        </div>
+        <div class="content-admin">
+            {% if active_menu_admin == 'felhasznalok-kezelese' %}
+                <div class="user-management">
+                    <h2>Felhasználók kezelése</h2>
+                    <button class="add-user-btn">Felhasználó hozzáadása</button>
+                    <table class="user-table">
+                        <thead>
+                            <tr>
+                                <th>Id</th>
+                                <th>Profil</th>
+                                <th>E-mail cím</th>
+                                <th>Telefonszám</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>1</td>
+                                <td>Példa Péter</td>
+                                <td>xyz@gmail.com</td>
+                                <td>+36 20 123 4567</td>
+                                <td>
+                                    <button class="edit-btn">Szerkesztés</button>
+                                    <button class="delete-btn">Törlés</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            {% else %}
+                <h2>Hirdetések kezelése</h2>
+                <table class="user-table">
+                    <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>Kép</th>
+                            <th>Hirdetés címe</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td><img class="icon" src="{{ url_for('static', filename='images/ads/ingatlan-pelda.jpg') }}" alt="Ingatlan kép"></td>
+                            <td>Eladó ingatlan</td>
+                            <td>
+                                <button class="edit-btn">Szerkesztés</button>
+                                <button class="delete-btn">Törlés</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            {% endif %}
+        </div>
+    </div>
+</body>
+</html>

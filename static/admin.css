@@ -1,0 +1,205 @@
+* {
+    font-family: cursive;
+}
+
+.body-admin {
+    font-family: Arial, sans-serif;
+    background-color: #F0E3D2;
+    margin: 0;
+    padding: 0;
+    font-size: 20px;
+}
+
+header {
+    background-color: #C4A77D;
+    padding: 15px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.brand{
+    text-align: left;
+    font-weight: bold;
+}
+
+header nav a {
+    margin: 0 15px;
+    text-decoration: none;
+    color: #000;
+    font-weight: bold;
+}
+
+nav {
+    text-align: right;
+}
+
+.container-admin {
+    display: flex;
+    margin-right: 0;
+}
+
+.sidebar-admin {
+    background-color: #F0E3D2;
+    width: 30%;
+    padding: 20px;
+}
+
+.sidebar-admin ul {
+    list-style-type: none;
+    padding: 0;
+    width: fit-content;
+}
+
+.sidebar-admin ul li {
+    margin: 15px 0;
+    width: 100%;
+    align-items: center;
+    display: flex;
+}
+
+.sidebar-admin ul li a {
+    text-decoration: none;
+    color: #000;
+    font-weight: bold;
+    white-space: nowrap;
+    flex: 1;
+}
+
+.sidebar-admin img {
+    width: 30px;
+    height: 30px;
+    object-fit: cover;
+    margin: 0 5px;
+}
+
+.active-menu {
+    background-color: #FAF5EF;
+    border-radius: 8px;
+    padding: 10px 0px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+}
+
+.active-menu a {
+    color: black;
+}
+.user-management {
+  text-align: left;
+}
+
+.user-table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: #FAF5EF;
+}
+
+.user-table th, .user-table td {
+    padding: 15px;
+    border-bottom: 1px solid #ddd;
+    text-align: left;
+}
+
+.add-user-btn {
+  background-color: #c79261;
+  border: none;
+  padding: 10px 20px;
+  color: white;
+  margin: 10px 0;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.add-user-btn:hover {
+  background-color: #a37944;
+}
+
+.edit-btn, .delete-btn {
+    padding: 10px 15px;
+    margin-right: 5px;
+    background-color: #d4a373;
+    border: none;
+    color: white;
+    cursor: pointer;
+}
+
+.edit-btn:hover, .delete-btn:hover {
+    opacity: 0.8;
+}
+
+.user-table img {
+    width: 60px;
+    height: 60px;
+}
+
+/* Tablet nézet (max 768px) */
+@media (max-width: 768px) {
+    .container-admin {
+        flex-direction: column;
+    }
+
+    .sidebar-admin {
+        width: 100%;
+        margin-bottom: 20px;
+    }
+
+    .user-management {
+        width: 100%;
+        text-align: center;
+    }
+
+    .user-table {
+        width: 100%;
+    }
+
+    header {
+        flex-direction: column;
+        text-align: center;
+        width: 100%;
+
+    }
+
+    header nav {
+        text-align: center;
+        margin-top: 10px;
+    }
+}
+
+/* Mobil nézet (max 480px) */
+@media (max-width: 480px) {
+    header {
+        padding: 10px;
+        width: 100%;
+    }
+
+    header nav a {
+        margin: 0 10px;
+        font-size: 14px;
+    }
+
+    .sidebar-admin {
+        width: 100%;
+        padding: 10px;
+    }
+
+    .user-table th, .user-table td {
+        padding: 10px;
+        font-size: 14px;
+    }
+
+    .add-user-btn {
+        padding: 8px 12px;
+        font-size: 14px;
+    }
+
+    .edit-btn, .delete-btn {
+        padding: 8px 10px;
+        font-size: 14px;
+    }
+
+    .user-table img, .sidebar-admin img {
+        width: 50%;
+        height: auto;
+    }
+}

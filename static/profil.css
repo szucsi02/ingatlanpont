@@ -1,0 +1,227 @@
+* {
+    font-family: cursive;
+}
+
+.body-profil {
+    font-family: Arial, sans-serif;
+    background-color: #F0E3D2;
+    margin: 0;
+    padding: 0;
+    font-size: 20px;
+}
+
+header {
+    background-color: #C4A77D;
+    padding: 15px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.brand{
+    text-align: left;
+    font-weight: bold;
+}
+
+header nav a {
+    margin: 0 15px;
+    text-decoration: none;
+    color: #000;
+    font-weight: bold;
+}
+
+nav {
+    text-align: right;
+}
+
+.container-profil {
+    display: flex;
+    margin-right: 0;
+}
+
+.sidebar-profil {
+    background-color: #F0E3D2;
+    width: 30%;
+    padding: 20px;
+}
+
+.sidebar-profil ul {
+    list-style-type: none;
+    padding: 0;
+    width: fit-content;
+}
+
+.sidebar-profil ul li {
+    margin: 15px 0;
+    width: 100%;
+    align-items: center;
+    display: flex;
+}
+
+.sidebar-profil ul li a {
+    text-decoration: none;
+    color: #000;
+    font-weight: bold;
+    white-space: nowrap;
+    flex: 1;
+}
+
+.sidebar-profil img {
+    width: 30px;
+    height: 30px;
+    object-fit: cover;
+    margin: 0 5px;
+}
+
+.icon{
+    width: 20px;
+    height: 20px;
+}
+
+.active {
+    background-color: #FAF5EF;
+    border-radius: 8px;
+    padding: 10px 0px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+}
+
+.active a {
+    color: black;
+}
+
+.profile-edit{
+    display: inline;
+    margin: 0;
+    padding: 0;
+}
+
+.content-profile {
+    flex: 1;
+    padding: 20px;
+    width: 100%;
+    margin-left: auto;
+}
+
+.content h2 {
+    font-size: 24px;
+    color: #333;
+}
+
+.content h3 {
+    font-size: 18px;
+    color: #666;
+    margin-bottom: 20px;
+}
+
+.data-card {
+    background-color: #FAF5EF;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    padding: 15px;
+    margin-bottom: 15px;
+}
+
+.data-card div {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.data-card div p {
+    margin: 0;
+    font-size: 16px;
+}
+
+.user-table {
+    width: 120%;
+    border-collapse: collapse;
+    background-color: #FAF5EF;
+}
+
+.user-table th, .user-table td {
+    padding: 15px;
+    border-bottom: 1px solid #ddd;
+    text-align: left;
+}
+
+.edit-btn, .delete-btn {
+    padding: 10px 15px;
+    margin-right: 5px;
+    background-color: #d4a373;
+    border: none;
+    color: white;
+    cursor: pointer;
+}
+
+.edit-btn:hover, .delete-btn:hover {
+    opacity: 0.8;
+}
+
+.user-table img {
+    width: 60px;
+    height: 60px;
+}
+
+/* Tablet nézet (max 768px) */
+@media (max-width: 768px) {
+    .container-profil {
+        flex-direction: column;
+    }
+
+    .sidebar-profil {
+        width: 100%;
+        margin-bottom: 20px;
+    }
+
+    .content-profile {
+        width: 100%;
+        margin-left: 0;
+    }
+
+    header {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    header nav {
+        text-align: center;
+        margin-top: 10px;
+    }
+
+    .user-table {
+        width: 100%;
+    }
+}
+
+/* Mobil nézet (max 480px) */
+@media (max-width: 480px) {
+    header {
+        padding: 10px;
+    }
+
+    header nav a {
+        margin: 0 10px;
+        font-size: 14px;
+    }
+
+    .sidebar-profil {
+        width: 100%;
+        padding: 10px;
+    }
+
+    .data-card {
+        padding: 10px;
+    }
+
+    .user-table th, .user-table td {
+        padding: 10px;
+        font-size: 14px;
+    }
+
+    .edit-btn, .delete-btn {
+        padding: 8px 10px;
+        font-size: 14px;
+    }
+}
