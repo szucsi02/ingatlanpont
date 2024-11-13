@@ -22,3 +22,19 @@ class FelhasznaloController:
         except Exception as e:
             print(f"Error during user registration: {str(e)}")
             raise e
+
+    def get_user_by_email(self, email, connection):
+        cursor = connection.cursor()
+        # Query to fetch the user based on email, including felhID (user ID)
+        cursor.execute("SELECT felhID, email, jelszo FROM Felhasznalo WHERE email = %s", (email,))
+        user = cursor.fetchone()
+        cursor.close()  # Make sure to close the cursor after the query
+        return user
+
+    def get_user_by_id(self, user_id, connection):
+        cursor = connection.cursor()
+        # Query to fetch the user based on user ID
+        cursor.execute("SELECT felhID, email, jelszo FROM Felhasznalo WHERE felhID = %s", (user_id,))
+        user = cursor.fetchone()
+        cursor.close()  # Close the cursor
+        return user

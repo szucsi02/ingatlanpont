@@ -1,79 +1,102 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="hu">
 <head>
-    <meta charset="UTF-8">
-    <title>IngatlanPont - Hirdetés</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-  <link rel="stylesheet" href="{{ url_for('static', filename='hirdetes.css') }}">
+  <title>IngatlanPont - Hirdetés</title>
+  <meta charset="utf-8" />
+  <meta
+          name="viewport"
+          content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+  <link
+          href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+          rel="stylesheet"
+          integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
+          crossorigin="anonymous"/>
   <script src="https://kit.fontawesome.com/da3624442f.js" crossorigin="anonymous"></script>
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+  <link rel="stylesheet" href="{{ url_for('static', filename='hirdetes.css') }}">
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@300..700&family=Lexend+Deca:wght@100..900&display=swap');
   </style>
+
 </head>
+
 <body>
-<nav class="navbar navbar-expand-lg bg-body-tertiary navbar-light">
-  <div class="container-fluid">
-    <a class="navbar-brand" href="#">IngatlanPont</a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-      <div class="navbar-nav ms-auto">
-        <a class="nav-link" aria-current="page" href="#">Hirdetések</a>
-        <a class="nav-link" href="{{ url_for('login') }}">Bejelentkezés</a>
-        <a class="nav-link" href="{{ url_for('register') }}">Regisztráció</a>
+<header>
+  <nav class="navbar navbar-expand-lg bg-body-tertiary navbar-light ">
+    <div class="container-fluid">
+      <a class="navbar-brand me-auto" href="{{ url_for('index') }}">IngatlanPont</a>
+      <button class="navbar-toggler rounded" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse justify-content-end" id="navbarNavAltMarkup">
+        <div class="navbar-nav d-flex">
+          <a class="nav-link" aria-current="page" href="{{ url_for('index') }}">Hirdetések</a>
+          <a class="nav-link" href="{{ url_for('login') }}">Bejelentkezés</a>
+          <a class="nav-link" href="{{ url_for('register') }}">Regisztráció</a>
+        </div>
       </div>
     </div>
-  </div>
-</nav>
+  </nav>
+</header>
 
-<div class="container-fluid" id="back-to-home">
-  <button class="btn btn-danger btn-circle btn-back"><i class="fa-solid fa-chevron-left"></i></button>
+<main>
+  <button type="button" class="btn btn-default btn-circle btn-xl btn-danger"><i class="fa-solid fa-angle-left"></i>
+  </button>
 
-</div>
-<div class="sor">
-
-    <div class="carousel slide" id="carouselDemo" data-bs-wrap="true">
-
-      <div class="carousel-inner">
-
-        <div class="carousel-item active">
-          <img src="{{ url_for('static', filename='images/hirdetes/house.jpg') }}" alt="house"/>
+  <div class="row gy-5  mt-auto">
+    <div class="col-lg-8 col-md-12 col-sm-12">
+      <div id="carouselExample" class="carousel slide">
+        <div class="carousel-inner">
+          <div class="carousel-item active">
+            <img src="{{ url_for('static', filename='images/hirdetes/house.jpg') }}" class="d-block w-100" alt="house1">
+          </div>
+          <div class="carousel-item">
+            <img src="{{ url_for('static', filename='images/hirdetes/inside.jpg') }}" class="d-block w-100" alt="inside">
+          </div>
+          <div class="carousel-item">
+            <img src="{{ url_for('static', filename='images/hirdetes/inside2.jpg') }}" class="d-block w-100" alt="inside2">
+          </div>
         </div>
-        <div class="carousel-item">
-          <img src="{{ url_for('static', filename='images/hirdetes/inside.jpg') }}" alt="inside"/>
-        </div>
-        <div class="carousel-item">
-          <img src="{{ url_for('static', filename='images/hirdetes/inside2.jpg') }}" alt="inside"/>
-        </div>
+
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Next</span>
+        </button>
+
+        <ol class="carousel-indicators">
+
+          <li type="button" class="active me-5" data-bs-target="#carouselDemo" data-bs-slide-to="0">
+
+            <img src="{{ url_for('static', filename='images/hirdetes/house.jpg') }}" alt="house">
+
+          </li>
+
+          <li type="button" class="me-5" data-bs-target="#carouselDemo" data-bs-slide-to="1">
+
+            <img src="{{ url_for('static', filename='images/hirdetes/inside.jpg') }}" alt="inside">
+
+          </li>
+
+          <li type="button" class="me-5" data-bs-target="#carouselDemo" data-bs-slide-to="2">
+
+            <img src="{{ url_for('static', filename='images/hirdetes/inside2.jpg') }}" alt="inside2">
+
+          </li>
+        </ol>
 
       </div>
-
-      <button class="carousel-control-prev" type="button" data-bs-target="#carouselDemo" data-bs-slide="prev">
-        <span class="carousel-control-prev-icon"></span>
-      </button>
-
-      <button class="carousel-control-next" type="button" data-bs-target="#carouselDemo" data-bs-slide="next">
-        <span class="carousel-control-next-icon"></span>
-      </button>
-
-      <div class="carousel-indicators">
-        <button type="button" class="active" data-bs-target="#carouselDemo" data-bs-slide-to="0">
-          <img src="{{ url_for('static', filename='images/hirdetes/house.jpg') }}" alt="house"/>
-        </button>
-        <button type="button" data-bs-target="#carouselDemo" data-bs-slide-to="1">
-          <img src="{{ url_for('static', filename='images/hirdetes/inside.jpg') }}" alt="inside"/>
-        </button>
-        <button type="button" data-bs-target="#carouselDemo" data-bs-slide-to="2">
-          <img src="{{ url_for('static', filename='images/hirdetes/inside2.jpg') }}" alt="inside"/>
-        </button>
-      </div>
-
     </div>
 
-      <div class="contact-card mt-5">
+    <div class="col-lg-4 col-md-12 col-sm-12 ">
+      <div class="card  card-body text-center " style="width: 18rem;">
+
         <h5>Vedd fel a kapcsolatot a hirdetés feladójával!</h5>
-
         <div class="contact-info">
 
           <div class="hirdeto">
@@ -86,59 +109,73 @@
         <button class="btn btn-phone">
           <i class="fa-solid fa-phone"></i> Telefonszám megjelenítése
         </button>
+
       </div>
 
-</div>
-
-
-<div class="location pt-5">
-  <h6>
-    <i class="fa-solid fa-location-dot" style="color: #000000;">
-    </i> {{ location }}</h6>
-</div>
-
-<div class="title">
-  <h4>{{ title }}</h4>
-</div>
-
-<div class="price">
-  <h5>Ár: {{ price }} Ft</h5>
-</div>
-
-<div class="description">
-  <p> {{ description }}</p>
-</div>
-
-<div class="container-fluid informations">
-  <h4>Tulajdonságok:</h4>
-  <div class="row">
-    <div class="area col-lg">
-      <h5>Alapterület</h5>
-      <p> <i class="fa-solid fa-house-chimney" style="color: #000000;"></i> {{ area }} m<sup>2</sup></p>
     </div>
-    <div class="all-area col-lg">
-      <h5>Telek</h5>
-      <p><i class="fa-solid fa-house-chimney" style="color: #000000;"></i> {{ all_are }} m<sup>2</sup></p>
+
+  </div>
+
+
+  <div class="container mx-0">
+    <div class="row">
+      <div class="location mt-5 col-lg-12 col-md-12 col-sm-12">
+        <h6>
+          <i class="fa-solid fa-location-dot" style="color: #000000;">
+          </i> {{ location }}</h6>
+      </div>
+
+      <div class="title col-12 " >
+        <h4>{{ title }}</h4>
+      </div>
+
+      <div class="price col-12 ">
+        <h5>Ár: {{ price }} Ft</h5>
+      </div>
     </div>
-    <div class="rooms col-lg">
-      <h5>Szobák száma</h5>
-      <p><i class="fa-solid fa-bed" style="color: #000000;"></i> {{ rooms }} szoba</p>
+    <div class="description ">
+      <p> {{ description }}</p>
     </div>
   </div>
 
-</div>
-
-<section class="footer">
-  <footer class="text-center text-white" style="background-color: #C5A77E;">
-
-    <div class="text-center p-3">
-      IngatanPont© 2024 Minden jog fenntartva!
+  <div class="container mx-0">
+    <div class="ms-4 col-lg-12 informations">
+      <h4 class="">Tulajdonságok:</h4>
+      <div class="row">
+        <div class="area col-lg-3 col-md-4 col-sm-12 me-4">
+          <h5>Alapterület</h5>
+          <p> <i class="fa-solid fa-house-chimney " style="color: #000000;"></i> {{ area }} m<sup>2</sup></p>
+        </div>
+        <div class="all-area col-lg-3 col-md-4 col-sm-12 me-4 ">
+          <h5>Telek</h5>
+          <p><i class="fa-solid fa-house-chimney" style="color: #000000;"></i> {{ all_are }} m<sup>2</sup></p>
+        </div>
+        <div class="rooms col-lg-3 col-md-4 col-sm-12">
+          <h5>Szobák száma</h5>
+          <p><i class="fa-solid fa-bed" style="color: #000000;"></i> {{ rooms }} szoba</p>
+        </div>
+      </div>
     </div>
+  </div>
 
-  </footer>
-</section>
+</main>
+<footer class=" footer text-center text-white " style="background-color: #C5A77E;">
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+  <div class="text-center pt-3 pb-3" >
+    IngatlanPont© 2024 Minden jog fenntartva!
+  </div>
+
+</footer>
+<script
+        src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+        integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+        crossorigin="anonymous"
+></script>
+
+<script
+        src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"
+        integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+"
+        crossorigin="anonymous"
+></script>
 </body>
 </html>

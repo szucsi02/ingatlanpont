@@ -5,106 +5,54 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bejelentkezés</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-    <style>
-        body {
-            background-color: #f8f9fa;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            text-align: center;
-        }
-        .container {
-            background-color: #ffffff;
-            padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            max-width: 400px;
-            width: 100%;
-        }
-        .form-group {
-            margin-bottom: 2rem;
-            margin-top: 2rem;
-        }
-        .form-group input {
-            border-radius: 10px;
-            width: 100%;
-        }
-        .btn-primary {
-            background-color: #007bff;
-            border-color: #007bff;
-            width: 50%;
-            margin-top: 2rem;
-            margin-bottom: 2rem;
-            border-radius: 10px;
-        }
-        .btn-primary:hover {
-            background-color: #0056b3;
-            border-color: #0056b3;
-        }
-        .mt-5 {
-            margin-top: 3rem !important;
-        }
-        .error-message {
-            color: red;
-            margin-top: 1rem;
-        }
-    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../static/login.css">
 </head>
 <body>
+    <!-- Flash Message Display -->
+<div class="container mt-4">
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            <div class="alert-container">
+                {% for category, message in messages %}
+                    <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
+                        {{ message }}
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+    {% endwith %}
+</div>
+
     <div class="container">
         <h2>Bejelentkezés</h2>
-        <form action="{{ url_for('login') }}" method="POST">
+        <form action="{{ url_for('login') }}" method="POST" id="loginForm">
             <div class="form-group">
-                <input type="email" class="form-control" id="email" name="email" placeholder="Email" required>
+                <input type="email" class="form-control" id="email" name="email" placeholder="E-mail cím" required>
             </div>
             <div class="form-group">
                 <input type="password" class="form-control" id="password" placeholder="Jelszó" name="password" required>
             </div>
-            <button type="submit" class="btn btn-primary">Login</button>
+            <button type="submit" class="btn btn-primary">Belépek</button>
         </form>
         <p>Nincs még fiókod? <a href="{{ url_for('register') }}">Regisztráció</a></p>
     </div>
+
+    <a href="/">
+        <img src="../static/images/close 1.png" alt="Login Image" id="close">
+    </a>
+    <div>
+        <p class="fixed-text">Több ezer ingatlan egy helyen - neked is van itt hely!</p>
+    </div>
+
+    <img src="../static/images/login.png" alt="Login Image" id="loginpic">
+
+    <!-- Scripts -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <script>
-        document.getElementById('loginForm').addEventListener('submit', function(event) {
-            event.preventDefault();
-
-            var email = document.getElementById('email').value;
-            var password = document.getElementById('password').value;
-
-            if (email === '' || password === '') {
-                alert('Kérjük, töltse ki az összes mezőt!');
-                return;
-            }
-
-            var formData = new FormData();
-            formData.append('email', email);
-            formData.append('password', password);
-
-            fetch("{{ url_for('login') }}", {
-                method: 'POST',
-                body: formData,
-                headers: {
-                    'X-Requested-With': 'XMLHttpRequest'
-                }
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.success) {
-                    alert('Sikeres bejelentkezés!');
-                    window.location.href = data.redirect_url;
-                } else {
-                    alert('Sikertelen bejelentkezés: ' + data.message);
-                }
-            })
-            .catch(error => {
-                console.error('Error:', error);
-                alert('Hiba történt a bejelentkezés során.');
-            });
-        });
-    </script>
 </body>
 </html>

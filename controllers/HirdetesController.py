@@ -2,8 +2,8 @@ from models import HirdetesModel
 import pymysql
 class HirdetesController:
 
-    def hirdetes_kereses(self, search_term, location, db_config):
-        connection = pymysql.connect(**db_config)
+    def hirdetes_kereses(self, search_term, location, connection):
+        cursor = connection.cursor()
         try:
             with connection.cursor() as cursor:
                 if search_term and location:
@@ -23,9 +23,9 @@ class HirdetesController:
             connection.close()
         return results
 
-    def hirdetes_szures(self, szures, db_config):
+    def hirdetes_szures(self, szures, connection):
         rooms, area, search_query, location = szures
-        results = self.hirdetes_kereses(search_query, location, db_config)
+        results = self.hirdetes_kereses(search_query, location, connection)
 
         if rooms:
             try:

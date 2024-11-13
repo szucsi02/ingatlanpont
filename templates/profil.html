@@ -3,19 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <title>IngatlanPont - Profil</title>
-<link rel="stylesheet" href="{{ url_for('static', filename='profil.css') }}">
-
+    <link rel="stylesheet" href="{{ url_for('static', filename='profil.css') }}">
+    <script src="https://kit.fontawesome.com/da3624442f.js" crossorigin="anonymous"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@300..700&family=Lexend+Deca:wght@100..900&display=swap');
+    </style>
 </head>
 <body class="body-profil">
     <header>
         <div>
-            <a style="font-weight: bold; font-size: 20px; text-decoration: none; color: #000;">IngatlanPont</a>
+            <a class="brand">IngatlanPont</a>
         </div>
         <nav>
-            <a href="#">Hirdetések</a>
-            <a href="#">Hirdetésfeladás</a>
-            <a href="#">Profil</a>
-            <a href="#">Kijelentkezés</a>
+            <a href="{{ url_for('index') }}">Hirdetések</a>
+            <a href="{{ url_for('hirdetes') }}">Hirdetésfeladás</a>
+            <a href="{{ url_for('profil') }}">Profil</a>
+            <a href="{{ url_for('logout') }}">Kijelentkezés</a>
         </nav>
     </header>
     <div class="container-profil">
@@ -42,68 +45,62 @@
             </ul>
         </div>
         <div class="content-profil">
-             {% if active_menu == 'szemelyes_adatok' %}
+            {% if active_menu == 'szemelyes_adatok' %}
                 <h2>Személyes adatok</h2>
-                 <h3>Általános adatok</h3>
+                <h3>Általános adatok</h3>
                 <p>Itt kezelheted a fiókod adatait és beállításait.</p>
-                 <div class = "data-card">
-                 <div>
-                    <p><strong>Név</strong></p>
-                 </div>
-                      {% if nevEdit %}
-                        <p><input type="text" value="Példa Péter" />
+                <div class="data-card">
+                    <div>
+                        <p><strong>Név</strong></p>
+                    </div>
+                    {% if nevEdit %}
+                        <p><input type="text" value="{{ user['name'] }}" />
                         <a href="{{ url_for('profil', nevEdit='False') }}"><img class="icon" src="{{ url_for('static', filename='images/check-mark.png') }}" alt="Mentés"></a>
                         </p>
-                      {% else %}
-                          <p>Példa Péter
+                    {% else %}
+                        <p>{{ user['name'] }}
                         <a href="{{ url_for('profil', nevEdit='True') }}"><img class="icon" src="{{ url_for('static', filename='images/edit.png') }}" alt="Módosítás"></a>
-                      </p>
-                      {% endif %}
+                        </p>
+                    {% endif %}
 
-                  <div>
-                    <p><strong>E-mail</strong></p>
-                 </div>
-                      {% if emailEdit %}
-                        <p><input type="text" value="xyz@gmail.com" />
+                    <div>
+                        <p><strong>E-mail</strong></p>
+                    </div>
+                    {% if emailEdit %}
+                        <p><input type="text" value="{{ user['email'] }}" />
                         <a href="{{ url_for('profil', emailEdit='False') }}"><img class="icon" src="{{ url_for('static', filename='images/check-mark.png') }}" alt="Mentés"></a>
                         </p>
-                      {% else %}
-                          <p>xyz@gmail.com
+                    {% else %}
+                        <p>{{ user['email'] }}
                         <a href="{{ url_for('profil', emailEdit='True') }}"><img class="icon" src="{{ url_for('static', filename='images/edit.png') }}" alt="Módosítás"></a>
-                      </p>
-                      {% endif %}
+                        </p>
+                    {% endif %}
 
-                   <div>
-                    <p><strong>Telefonszám</strong></p>
-                 </div>
-                      {% if telszamEdit %}
-                        <p><input type="text" value="+36 20 123 4567" />
+                    <div>
+                        <p><strong>Telefonszám</strong></p>
+                    </div>
+                    {% if telszamEdit %}
+                        <p><input type="text" value="{{ user['phone'] }}" />
                         <a href="{{ url_for('profil', telszamEdit='False') }}"><img class="icon" src="{{ url_for('static', filename='images/check-mark.png') }}" alt="Mentés"></a>
                         </p>
-                      {% else %}
-                          <p>+36 20 123 4567
+                    {% else %}
+                        <p>{{ user['phone'] }}
                         <a href="{{ url_for('profil', telszamEdit='True') }}"><img class="icon" src="{{ url_for('static', filename='images/edit.png') }}" alt="Módosítás"></a>
-                      </p>
-                      {% endif %}
-
-                 </div>
-                <!-- További személyes információk itt, ha vannak -->
+                        </p>
+                    {% endif %}
+                </div>
 
             {% elif active_menu == 'jelszo_modositas' %}
                 <h2>Jelszó módosítása</h2>
-                <!-- <form method="POST" action=""> -->
+                <form method="POST" action="{{ url_for('change_password') }}">
                     <label for="new_password">Új jelszó:</label>
                     <input type="password" id="new_password" name="new_password" required>
                     <button type="submit">Mentés</button>
-                <!-- </form> -->
+                </form>
 
             {% elif active_menu == 'hirdeteseim' %}
                 <h2>Hirdetéseim kezelése</h2>
-                <!-- Hirdetések listázása itt -->
-                 <!-- Alap kinézet, majd for ciklussal kiírható ebbe a nézetbe az összes. -->
-
-                 <table class="user-table">
-
+                <table class="user-table">
                     <thead>
                         <tr>
                             <th>Id</th>
@@ -112,12 +109,13 @@
                         </tr>
                     </thead>
                     <tbody>
+                        <!-- Example hirdetés item; replace with dynamic data -->
                         <tr>
                             <td>1</td>
                             <td><img class="icon" src="{{ url_for('static', filename='images/ads/ingatlan-pelda.jpg') }}" alt="Ingatlan kép"></td>
                             <td>Eladó ingatlan</td>
                             <td>
-                                <button class="edit-btn">Szerkesztés</button> <!-- Itt akkor a hirdetés létrehozása html lehet az alap, funkciók módosításával -->
+                                <button class="edit-btn">Szerkesztés</button>
                                 <button class="delete-btn">Törlés</button>
                             </td>
                         </tr>
@@ -127,7 +125,6 @@
             {% elif active_menu == 'fok' %}
                 <h2>Fiók törlése</h2>
                 <p>Itt törölheted a fiókodat.</p>
-                <!-- Fiók törlésének információi itt -->
 
             {% else %}
                 <h2>Hiba történt</h2>
