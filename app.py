@@ -207,6 +207,5 @@ def hirdetes():
                            hirdeto="Példa Péter",
                            ingatlanIroda="Házadlesz Ingatlaniroda")
 
-if __name__ == '__main__':
-    app.run(debug=True)
+
 
