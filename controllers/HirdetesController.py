@@ -3,7 +3,6 @@ import pymysql
 class HirdetesController:
 
     def hirdetes_kereses(self, search_term, location, connection):
-        cursor = connection.cursor()
         try:
             with connection.cursor() as cursor:
                 if search_term and location:
@@ -23,7 +22,9 @@ class HirdetesController:
             connection.close()
         return results
 
-    def hirdetes_szures(self, szures, connection):
+    def hirdetes_szures(self, szures=None, connection=None):
+        if szures is None:
+            szures = ['', '', '', '']
         rooms, area, search_query, location = szures
         results = self.hirdetes_kereses(search_query, location, connection)
 
@@ -35,6 +36,8 @@ class HirdetesController:
                 pass  # Ignore if rooms is not a valid integer
         if area:
             results = [r for r in results if r['alapterulet'] >= int(area)]
+        else:
+            return results
 
         return results
 
@@ -44,3 +47,17 @@ class HirdetesController:
         pass
     def hirdetes_torles(self, hirdetes_id: int) -> None:
         pass
+
+
+
+    def get_hirdetes_by_id(self, hirdetes_id, db_config):
+        connection = pymysql.connect(**db_config)
+        try:
+            with connection.cursor() as cursor:
+                sql = "SELECT * FROM Hirdetes WHERE id = %s"
+                cursor.execute(sql, (hirdetes_id,))
+                hirdetes = cursor.fetchone()
+            return hirdetes
+        finally:
+            connection.close()
+

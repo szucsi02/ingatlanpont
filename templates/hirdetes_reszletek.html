@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+  <meta charset="UTF-8">
+  <title>Hirdetés Részletei</title>
+</head>
+<body>
+<h1>{{ hirdetes.title }}</h1>
+<p><strong>Ár:</strong> {{ hirdetes.price }} HUF</p>
+<p><strong>Szobák száma:</strong> {{ hirdetes.rooms }}</p>
+<p><strong>Alapterület:</strong> {{ hirdetes.area }} m²</p>
+<p><strong>Leírás:</strong> {{ hirdetes.description }}</p>
+<p><strong>Helyszín:</strong> {{ hirdetes.location }}</p>
+<a href="{{ url_for('index') }}">Vissza a főoldalra</a>
+</body>
+</html>

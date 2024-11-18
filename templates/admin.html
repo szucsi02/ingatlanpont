@@ -4,16 +4,20 @@
     <meta charset="UTF-8">
     <title>IngatlanPont - Admin</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='admin.css') }}">
+      <script src="https://kit.fontawesome.com/da3624442f.js" crossorigin="anonymous"></script>
+    <style>
+    @import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@300..700&family=Lexend+Deca:wght@100..900&display=swap');
+  </style>
 </head>
 <body class="body-admin">
     <header>
         <div>
-            <a style="font-weight: bold; font-size: 20px; text-decoration: none; color: #000;">IngatlanPont</a>
+            <a class="brand">IngatlanPont</a>
         </div>
         <nav>
-            <a href="#">Admin oldal</a>
-            <a href="#">Hirdetések</a>
-            <a href="#">Profil</a>
+            <a href="{{ url_for('admin') }}">Admin oldal</a>
+            <a href="{{ url_for('index') }}">Hirdetések</a>
+            <a href="{{ url_for('profil') }}">Profil</a>
             <a href="#">Kijelentkezés</a>
         </nav>
     </header>

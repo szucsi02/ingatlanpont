@@ -3,11 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <title>IngatlanPont - Profil</title>
+<<<<<<< HEAD
+<link rel="stylesheet" href="{{ url_for('static', filename='profil.css') }}">
+    <script src="https://kit.fontawesome.com/da3624442f.js" crossorigin="anonymous"></script>
+      <style>
+        @import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@300..700&family=Lexend+Deca:wght@100..900&display=swap');
+    </style>
+
+=======
     <link rel="stylesheet" href="{{ url_for('static', filename='profil.css') }}">
     <script src="https://kit.fontawesome.com/da3624442f.js" crossorigin="anonymous"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@300..700&family=Lexend+Deca:wght@100..900&display=swap');
     </style>
+>>>>>>> c5b656a8acc5f3c403f5a7075798d295c9bde873
 </head>
 <body class="body-profil">
     <header>
@@ -15,9 +24,16 @@
             <a class="brand">IngatlanPont</a>
         </div>
         <nav>
+<<<<<<< HEAD
+           <a href="{{ url_for('index') }}">Hirdetések</a>
+            <a href="{{ url_for('hirdetes') }}">Hirdetésfeladás</a>
+            <a href="{{ url_for('profil') }}">Profil</a>
+            <a href="#">Kijelentkezés</a>
+=======
             <a href="{{ url_for('index') }}">Hirdetések</a>
             <a href="{{ url_for('hirdetes') }}">Hirdetésfeladás</a>
             <a href="{{ url_for('profil') }}">Profil</a>
+>>>>>>> c5b656a8acc5f3c403f5a7075798d295c9bde873
             <a href="{{ url_for('logout') }}">Kijelentkezés</a>
         </nav>
     </header>
@@ -25,7 +41,6 @@
         <div class="sidebar-profil">
             <ul class="sidebar-profil">
                 <p>Fiókbeállítások</p>
-                <!-- Belső menü rendszerhez menu változó -->
                 <li class="{% if active_menu == 'szemelyes_adatok' %}active{% endif %}">
                     <img src="{{ url_for('static', filename='images/user.png') }}" alt="Személyes adatok">
                     <a href="{{ url_for('profil', menu='szemelyes_adatok') }}">Személyes adatok</a>

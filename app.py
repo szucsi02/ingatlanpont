@@ -24,16 +24,19 @@ def get_db_connection():
     connection = pymysql.connect(**db_config)
     return connection
 
+
 @app.route('/', methods=['GET', 'POST'])
 def index():
-    results = None
+    results = HirdetesController.hirdetes_szures(connection=get_db_connection())
+    user_logged_in = 'user_id' in session  # Check if user is logged in
     if request.method == 'POST':
         rooms = request.form.get('rooms')
         area = request.form.get('area')
         search_term = request.form.get('search')
         location = request.form.get('location')
         results = HirdetesController.hirdetes_szures([rooms, area, search_term, location], get_db_connection())
-    return render_template('index.html', results=results)
+    return render_template('index.html', results=results, user_logged_in=user_logged_in)
+
 
 @app.route('/search', methods=['GET', 'POST'])
 def search():
@@ -54,7 +57,7 @@ def register():
             flash('A jelszavak nem egyeznek, kérjük próbáld újra.', 'danger')
             return redirect(url_for('register'))
 
-        hashed_password = generate_password_hash(password)
+        hashed_password = generate_password_hash(password,method = 'pbkdf2')
         try:
             connection = get_db_connection()
             FelhasznaloController.register_user(email, hashed_password, connection)
@@ -113,58 +116,31 @@ def logout():
 
 @app.route('/profil', methods=['GET', 'POST'])
 def profil():
-    if 'felhID' not in session:
-        flash("Please log in to access your profile.")
+    if 'user_id' not in session:
         return redirect(url_for('login'))
+    active_menu = request.args.get('menu', 'szemelyes_adatok')  # Default to 'szemelyes_adatok' if no menu is specified
 
-    user_id = session['felhID']
-    active_menu = request.args.get('menu', 'szemelyes_adatok')  # A profiloldal belső menüjének vezérlése
-
-    nevEdit = request.args.get('nevEdit', 'False') == 'True'
-    emailEdit = request.args.get('emailEdit', 'False') == 'True'
-    telszamEdit = request.args.get('telszamEdit', 'False') == 'True'
+    # Validate the menu value
+    valid_menus = ['szemelyes_adatok', 'jelszo_modositas', 'hirdeteseim', 'fok']
+    if active_menu not in valid_menus:
+        active_menu = 'szemelyes_adatok'  # Default to 'szemelyes_adatok' if invalid menu is passed
 
     connection = get_db_connection()
-    cursor = connection.cursor()
+    user_id = session['user_id']
+    user = FelhasznaloController.get_user_by_id(user_id, connection)
 
-    if request.method == 'POST' and 'delete_profile' not in request.form:
-        new_name = request.form.get('name')
-        new_email = request.form.get('email')
-        new_phone = request.form.get('phone')
+    if not user:
+        flash('Hiba történt, nem található a felhasználó!', 'danger')
+        return redirect(url_for('login'))
 
-        cursor.execute("""
-            UPDATE Felhasznalo 
-            SET nev = %s, email = %s, telefonszam = %s 
-            WHERE felhID = %s
-        """, (new_name, new_email, new_phone, user_id))
-        connection.commit()
-        flash("Profile updated successfully")
-        return redirect(url_for('profil'))
+    return render_template('profil.html', user=user, active_menu=active_menu)
 
-    elif request.method == 'POST' and 'delete_profile' in request.form:
-        cursor.execute("DELETE FROM Felhasznalo WHERE felhID = %s", (user_id,))
-        connection.commit()
-        cursor.close()
-        connection.close()
-
-        session.pop('user_id', None)
-        flash("Profile deleted successfully")
-        return redirect(url_for('index'))
-
-    cursor.execute("SELECT * FROM Felhasznalo WHERE felhID = %s", (user_id,))
-    profile_data = cursor.fetchone()
-
-    cursor.close()
-    connection.close()
-
-    return render_template('profil.html', profile_data=profile_data, active_menu=active_menu,
-                           nevEdit=nevEdit, emailEdit=emailEdit, telszamEdit=telszamEdit)
-
+    return render_template('profil.html', user=user, active_menu=active_menu)
 @app.route('/admin')
 def admin():
-    if 'felhID' not in session or session.get('admin_e') != 'TRUE':
-        flash("Nincs megfelelő jogosultság.")
-        return redirect(url_for('login'))
+    #if 'felhID' not in session or session.get('admin_e') != 'TRUE':
+       #flash("Nincs megfelelő jogosultság.")
+        #return redirect(url_for('login'))
 
     active_menu_admin = request.args.get('menu2', 'felhasznalok-kezelese')  # For internal menu of admin page
     return render_template('admin.html', active_menu_admin=active_menu_admin)
@@ -207,6 +183,55 @@ def hirdetes():
                            hirdeto="Példa Péter",
                            ingatlanIroda="Házadlesz Ingatlaniroda")
 
+
+@app.route('/create_hirdetes', methods=['GET', 'POST'])
+def create_hirdetes():
+    if request.method == 'POST':
+        title = request.form['title']
+        description = request.form['description']
+        price = request.form['price']
+        rooms = request.form['rooms']
+        area = request.form['area']
+        location = request.form['location']
+
+        connection = get_db_connection()
+        cursor = connection.cursor()
+        cursor.execute("""
+            INSERT INTO Hirdetes (title, description, price, rooms, area, location) 
+            VALUES (%s, %s, %s, %s, %s, %s)
+        """, (title, description, price, rooms, area, location))
+        connection.commit()
+        cursor.close()
+        connection.close()
+
+        flash('Hirdetés sikeresen hozzáadva!', 'success')
+        return redirect(url_for('index'))
+
+    return render_template('create_hirdetes.html')
+
+
+@app.route('/hirdetes/<int:id>', methods=['GET'])
+def hirdetes_reszletek(id):
+    try:
+        # Establish database connection
+        connection = get_db_connection()
+        # Fetch the specific listing using HirdetesController
+        hirdetes = HirdetesController.get_hirdetes_by_id(id, connection)
+        connection.close()
+
+        # Check if the listing exists
+        if not hirdetes:
+            flash("A hirdetés nem található.", "danger")
+            return redirect(url_for('index'))
+
+        # Render the detailed view page for this listing
+        return render_template('hirdetes_reszletek.html', hirdetes=hirdetes)
+
+    except Exception as e:
+        flash(f"Hiba történt a hirdetés megjelenítésekor: {str(e)}", "danger")
+        return redirect(url_for('index'))
+
+
 if __name__ == '__main__':
-    app.run()
+    app.run(debug=True)
 

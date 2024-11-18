@@ -38,8 +38,8 @@ body {
     border-radius: 10px;
 }
 .btn-primary:hover {
-    background-color: #7a3e02;
-    border-color: #7a3e02;
+    background-color: #0056b3;
+    border-color: #0056b3;
 }
 .mt-5 {
     margin-top: 3rem !important;
@@ -138,12 +138,5 @@ h2 {
         width: 40%;
         height: 60px;
         font-size: 1.6rem;
-    }
-    .fixed-text {
-        top: 0;
-        left: 50%;
-        transform: translateX(-50%);
-        margin-top: 15vh;
-        margin-left: 0;
     }
 }

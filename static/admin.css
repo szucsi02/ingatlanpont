@@ -1,17 +1,24 @@
 * {
-    font-family: cursive;
+    font-family: "Fredoka";
 }
 
 .body-admin {
-    font-family: Arial, sans-serif;
-    background-color: #F0E3D2;
+    font-family: "Fredoka";
+    background-color: #F0E3D1;
     margin: 0;
     padding: 0;
     font-size: 20px;
 }
 
+.h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6 {
+    margin-top: 0;
+    margin-bottom: .5rem;
+    font-weight: 500;
+    line-height: 1.2;
+}
+
 header {
-    background-color: #C4A77D;
+    background-color: #C5A77E;
     padding: 15px 20px;
     display: flex;
     justify-content: space-between;
@@ -20,14 +27,18 @@ header {
 
 .brand{
     text-align: left;
-    font-weight: bold;
+    font-weight: bolder;
+    font-size: 25px;
+    text-decoration: none;
+    color: #000;
 }
 
 header nav a {
     margin: 0 15px;
     text-decoration: none;
     color: #000;
-    font-weight: bold;
+    font-weight: normal;
+    font-size: 20px;
 }
 
 nav {
@@ -40,7 +51,7 @@ nav {
 }
 
 .sidebar-admin {
-    background-color: #F0E3D2;
+    background-color: #F0E3D1;
     width: 30%;
     padding: 20px;
 }
@@ -59,9 +70,9 @@ nav {
 }
 
 .sidebar-admin ul li a {
+    font-weight: 500;
     text-decoration: none;
     color: #000;
-    font-weight: bold;
     white-space: nowrap;
     flex: 1;
 }
@@ -95,6 +106,10 @@ nav {
     background-color: #FAF5EF;
 }
 
+.user-table th{
+    font-weight: 500;
+}
+
 .user-table th, .user-table td {
     padding: 15px;
     border-bottom: 1px solid #ddd;
@@ -102,11 +117,11 @@ nav {
 }
 
 .add-user-btn {
-  background-color: #c79261;
+  background-color: #B95C00;
   border: none;
   padding: 10px 20px;
   color: white;
-  margin: 10px 0;
+  margin: 10px 0 30px 0;
   cursor: pointer;
   border-radius: 5px;
 }
@@ -118,7 +133,7 @@ nav {
 .edit-btn, .delete-btn {
     padding: 10px 15px;
     margin-right: 5px;
-    background-color: #d4a373;
+    background-color: #B95C00;
     border: none;
     color: white;
     cursor: pointer;
@@ -132,16 +147,43 @@ nav {
     width: 60px;
     height: 60px;
 }
+/* Tablet nézet (max 850px) */
+@media (max-width: 850px) {
 
-/* Tablet nézet (max 768px) */
-@media (max-width: 768px) {
+    .brand{
+        font-weight: bolder;
+        font-size: 30px;
+        text-align: center;
+        text-decoration: none;
+        color: #000;
+    }
+
+    .body-admin {
+        font-size: 20px;
+        text-align: center;
+    }
+
     .container-admin {
         flex-direction: column;
+        text-align: center;
+        align-items: center;
     }
 
     .sidebar-admin {
-        width: 100%;
-        margin-bottom: 20px;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        width: fit-content;
+        margin: 0 auto;
+    }
+
+    .sidebar-admin li {
+        width: fit-content;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        padding: 5px;
     }
 
     .user-management {
@@ -151,55 +193,104 @@ nav {
 
     .user-table {
         width: 100%;
+        text-align: center;
     }
 
     header {
         flex-direction: column;
-        text-align: center;
         width: 100%;
-
     }
 
     header nav {
         text-align: center;
         margin-top: 10px;
+        font-size: 30px;
+        font-weight: normal;
+    }
+
+    .sidebar-admin ul li {
+        margin: 15px 0;
+        align-items: center;
+        display: flex;
     }
 }
 
 /* Mobil nézet (max 480px) */
 @media (max-width: 480px) {
+
+    .brand{
+        font-weight: bolder;
+        font-size: 33px;
+        text-align: center;
+        text-decoration: none;
+        color: #000;
+    }
+
+    .body-admin {
+        font-size: 33px;
+        text-align: center;
+    }
+
     header {
         padding: 10px;
         width: 100%;
+        text-align: center;
     }
 
     header nav a {
         margin: 0 10px;
-        font-size: 14px;
+        text-align: center;
+        font-size: 33px;
+        font-weight: normal;
     }
 
     .sidebar-admin {
-        width: 100%;
-        padding: 10px;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        width: fit-content;
+        margin: 0 auto;
+    }
+
+    .sidebar-admin li {
+        width: fit-content;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        padding: 5px;
+    }
+
+    .user-table th{
+        font-weight: 500;
     }
 
     .user-table th, .user-table td {
         padding: 10px;
-        font-size: 14px;
+        text-align: center;
     }
 
     .add-user-btn {
         padding: 8px 12px;
-        font-size: 14px;
+        margin-bottom: 40px;
+        text-align: center;
+        font-size: 35px;
     }
 
     .edit-btn, .delete-btn {
         padding: 8px 10px;
-        font-size: 14px;
+        text-align: center;
+        font-size: 30px;
     }
 
     .user-table img, .sidebar-admin img {
-        width: 50%;
+        width: 30px;
         height: auto;
     }
+    .sidebar-admin ul li {
+        margin: 15px 0;
+        align-items: center;
+        display: flex;
+    }
 }
+
